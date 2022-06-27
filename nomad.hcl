@@ -38,8 +38,8 @@ job "demo-java" {
       template {
         data = <<EOH
 {{- with secret "aws/creds/s3" }}
-aws_access_key={{ .Data.access_key | toJSON }}
-aws_secret_key={{ .Data.secret_key | toJSON }}
+aws_access_key={{- .Data.access_key | toJSON }}
+aws_secret_key={{- .Data.secret_key | toJSON }}
 {{- end }}
       EOH
 				env = true
