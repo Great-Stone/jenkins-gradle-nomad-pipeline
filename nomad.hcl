@@ -33,7 +33,7 @@ job "demo-java" {
         memory = 512
       }
       env {
-        DYNAMIC_PROPERTIES_PATH = "secrets/file.env"
+        DYNAMIC_PROPERTIES_PATH = "secrets/dynamic.properties"
       }
       template {
         data = <<EOH
@@ -43,11 +43,11 @@ aws_secret_key={{ .Data.secret_key | toJSON }}
 {{- end }}
       EOH
 				env = true
-				destination = "local/dynamic.properties"
+				destination = "secrets/dynamic.properties"
 				change_mode = "noop"
       }
       config {
-        jar_path    = "local/demo-${var.version}.jar"
+        jar_path    = "local/file"
         jvm_options = ["-Xms256m", "-Xmx512m"]
       }
       logs {
