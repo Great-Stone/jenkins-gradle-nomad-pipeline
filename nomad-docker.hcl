@@ -1,6 +1,5 @@
-variable "version" {
-  default = "0"
-}
+variable "image" {}
+variable "tag" {}
 
 job "demo-docker" {
   datacenters = ["dc1"]
@@ -47,7 +46,7 @@ aws_secret_key={{ .Data.secret_key | toJSON }}
 				change_mode = "noop"
       }
       config {
-        image = "local/file"
+        image = "${var.image}:${var.tag}"
       }
       logs {
         max_files     = 10
