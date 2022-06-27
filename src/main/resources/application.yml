@@ -1,0 +1,4 @@
+dynamic:
+  path: ${DYNAMIC_PROPERTIES_PATH:/tmp/dynamic.properties}
+server:
+  port: ${NOMAD_HOST_PORT_http:8080}
