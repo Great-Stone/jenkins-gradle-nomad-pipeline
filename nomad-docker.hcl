@@ -1,5 +1,6 @@
 variable "image" {}
 variable "tag" {}
+variable "ecr_token" {}
 
 job "demo-docker" {
   datacenters = ["dc1"]
@@ -47,6 +48,11 @@ aws_secret_key={{ .Data.secret_key | toJSON }}
       }
       config {
         image = "${var.image}:${var.tag}"
+        auth_soft_fail = true
+        auth {
+          username = "AWS"
+          password = var.ecr_token
+        }
       }
       logs {
         max_files     = 10
