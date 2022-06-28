@@ -33,7 +33,7 @@ job "demo-docker" {
         memory = 512
       }
       env {
-        DYNAMIC_PROPERTIES_PATH = "/secrets/dynamic.properties"
+        DYNAMIC_PROPERTIES_PATH = "/home/dynamic.properties"
       }
       template {
         data = <<EOH
@@ -43,12 +43,15 @@ aws_secret_key={{ .Data.secret_key | toJSON }}
 {{- end }}
       EOH
 				env = true
-				destination = "secrets/dynamic.properties"
+				destination = "local/creds/dynamic.properties"
 				change_mode = "noop"
       }
       config {
         image = "${var.image}:${var.tag}"
         auth_soft_fail = true
+        volumes = [
+          "local/creds:/home"
+        ]
         auth {
           username = "AWS"
           password = var.ecr_token
